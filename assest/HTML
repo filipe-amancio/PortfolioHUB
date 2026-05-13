@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meu Portfólio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Filipe Amancio da Silva</h1>
+        <p>Desenvolvedor e Treinador de IA em formação</p>
+    </header>
+
+<section>
+    <h2>Foto Profissional</h2>
+    <img src="assets/imagens/foto_4x5.jpg" width="200">
+</section>
+
+    <section>
+        <h2>Biográfia</h2>
+        <p>Sou estudante do curso de Bacharelado em Inteligência Artificial e tenho interesse em tecnologia, programação e desenvolvimento de sistemas, focado na aprendizagem em Machine Learning, Deep Learning, Reinforcement Learning e principalmente em sistemas de inteligência integrados há um sistema mecânico/robótico. </p>
+    </section>
+
+    <section>
+        <h2>Projetos</h2>
+        <ul>
+            <li>Projeto de lógica de programação: https://github.com/amanciofilipe-byte/Sistema-Bancario/blob/main/Upload%20files</li>
+            <li>Site simples em HTML e CSS: </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Hard Skills</h2>
+        <p>HTML, CSS, JavaScript, Python,Google Colab,NLP</p>
+         
+        <h2>Soft Skills</h2>
+         <p>Comunicação, Trabalho em Equipe, Resolução de Problemas, gerenciamneto de Projetos e Pessoas.</p>
+    </section>
+
+<section>
+    <h2>Experiência Profissional</h2>
+
+    <h3>Estágio em Tecnologia (Exemplo)</h3>
+    <p><strong>Empresa:</strong> Centro Medico VP</p>
+    <p><strong>Período:</strong> 2023 - Atual</p>
+    <p>
+        Atuação no manuseio de soluções para problemas de comunicação, análise de dados
+        e suporte em projetos envolvendo inteligência artificial.
+    </p>
+
+    <h3>Freelancer (Opcional)</h3>
+    <p>
+        Desenvolvimento de pequenos projetos web utilizando HTML, CSS e JavaScript e python.
+    </p>
+</section>
+
+<section>
+    <h2>Formação Acadêmica</h2>
+
+    <p><strong>Curso:</strong> Bacharelado em Inteligência Artificial</p>
+    <p><strong>Instituição:</strong> Centro Universitário de Brasilia</p>
+    <p><strong>Período:</strong> 2026 - 2029</p>
+
+</section>
+
+<section>
+    <h2>Certificações</h2>
+
+    <ul>
+        <li>Curso de Inglês - Casa Thomas Jerfeson</li>
+        <li>Claud - AWS</li>
+        <li>Machine Learning - Google Colab</li>
+    </ul>
+
+</section>
+
+<section>
+    <h2>Recomendações</h2>
+
+    <p>
+        "Filipe é um aluno dedicado, com grande capacidade de aprendizado
+        e excelente desempenho em projetos de tecnologia."
+    </p>
+    <p><strong>- Professor João</strong></p>
+
+    <p>
+        "Demonstrou comprometimento e habilidade técnica no desenvolvimento
+        de soluções inovadoras."
+    </p>
+    <p><strong>- Supervisor Maria</strong></p>
+
+</section>
+
+
+
+
+    <section>
+        <h2>Contato</h2>
+        <p>Email: amanciofilipe0906@gmail.com<p></p>
+           <p></p> Telefone: (61) 99901-5955<p></p>
+           <p></p> GitHub: https://github.com/amanciofilipe-byte<p></p>
+    </section>
+
+
+</body>
+</html>
