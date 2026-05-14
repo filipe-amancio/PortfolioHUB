@@ -1,107 +1,1251 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Meu Portfólio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filipe Amancio — Portfólio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ============================================================
+       VARIÁVEIS & RESET
+    ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      --bg:        #060910;
+      --bg2:       #0c1118;
+      --bg3:       #111827;
+      --border:    rgba(255,255,255,0.07);
+      --accent:    #00e5ff;
+      --accent2:   #7c3aed;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --white:     #ffffff;
+      --card:      rgba(255,255,255,0.03);
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius:    14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── RUÍDO DE FUNDO ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       CURSOR PERSONALIZADO
+    ============================================================ */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.12s ease;
+      opacity: 0.5;
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      padding: 1.25rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(6,9,16,0.85);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--white);
+      letter-spacing: -0.03em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 10rem 5% 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Glow de fundo */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -200px; left: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      background: rgba(0,229,255,0.07);
+      border: 1px solid rgba(0,229,255,0.2);
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      margin-bottom: 1.75rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag i { font-size: 0.65rem; }
+
+    .hero-name {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero-name .line2 {
+      display: block;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 560px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-cta {
+      margin-top: 2.75rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.75rem;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Foto hero */
+    .hero-photo {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(200px, 22vw, 310px);
+      aspect-ratio: 3/4;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 60px rgba(0,229,255,0.08);
+      animation: fadeIn 0.8s 0.4s ease both;
+    }
+
+    .hero-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-photo-placeholder {
+      width: 100%; height: 100%;
+      background: var(--bg3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .hero-photo-placeholder i { font-size: 3rem; color: var(--border); }
+
+    /* Stats */
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ============================================================
+       SEÇÕES COMUNS
+    ============================================================ */
+    section {
+      padding: 6rem 5%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title span { color: var(--accent); }
+
+    /* Linha divisória */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0 5%;
+      width: 90%;
+    }
+
+    /* ============================================================
+       SOBRE
+    ============================================================ */
+    #sobre .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .sobre-text p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+    }
+
+    .sobre-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .sobre-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+    }
+
+    .info-item i {
+      color: var(--accent);
+      width: 16px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .info-item span { color: var(--muted); }
+    .info-item strong { color: var(--text); font-weight: 500; }
+
+    /* ============================================================
+       SKILLS
+    ============================================================ */
+    #habilidades { background: var(--bg2); }
+
+    .skills-block {
+      margin-bottom: 3rem;
+    }
+
+    .skills-block h3 {
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .skills-block h3::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text);
+      font-weight: 400;
+      transition: all 0.2s;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,229,255,0.05);
+    }
+
+    .skill-tag i { font-size: 0.8rem; }
+
+    /* ============================================================
+       EXPERIÊNCIA & FORMAÇÃO
+    ============================================================ */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 6px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(0,229,255,0.5);
+      transform: translateX(-4px);
+    }
+
+    .tl-period {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.3rem;
+    }
+
+    .tl-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .tl-sub {
+      font-size: 0.85rem;
+      color: var(--accent2);
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+
+    .tl-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .exp-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+
+    /* ============================================================
+       PROJETOS
+    ============================================================ */
+    #projetos { background: var(--bg2); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: all 0.3s;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,229,255,0.03), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: rgba(0,229,255,0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    .project-title {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 300;
+      flex: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .project-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(0,229,255,0.07);
+      border: 1px solid rgba(0,229,255,0.15);
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .project-link {
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .project-card:hover .project-link { color: var(--accent); }
+
+    /* ============================================================
+       CERTIFICAÇÕES
+    ============================================================ */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .cert-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: border-color 0.25s;
+    }
+
+    .cert-card:hover { border-color: rgba(124,58,237,0.4); }
+
+    .cert-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent2);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       RECOMENDAÇÕES
+    ============================================================ */
+    #recomendacoes { background: var(--bg2); }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .rec-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .rec-quote {
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.2;
+      font-family: Georgia, serif;
+      position: absolute;
+      top: 1rem; left: 1.5rem;
+    }
+
+    .rec-text {
+      font-size: 0.95rem;
+      color: var(--text);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.7;
+      margin-top: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .rec-author {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ============================================================
+       CONTATO
+    ============================================================ */
+    #contato {
+      text-align: center;
+      padding: 8rem 5%;
+    }
+
+    .contact-card {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .contact-card .section-title { margin-bottom: 1.25rem; }
+
+    .contact-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 300;
+      margin-bottom: 3rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.25s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .contact-link i { font-size: 1rem; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      text-align: center;
+      padding: 2rem 5%;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ============================================================
+       ANIMAÇÕES
+    ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       RESPONSIVO
+    ============================================================ */
+    @media (max-width: 900px) {
+      .hero-photo { display: none; }
+      #sobre .sobre-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .exp-form-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .rec-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 4rem 5%; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
 <body>
 
-    <header>
-        <h1>Filipe Amancio da Silva</h1>
-        <p>Desenvolvedor e Treinador de IA em formação</p>
-    </header>
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-<section>
-    <h2>Foto Profissional</h2>
-    <img src="assets/imagens/foto_4x5.jpg" width="200">
-</section>
-
-    <section>
-        <h2>Biográfia</h2>
-        <p>Sou estudante do curso de Bacharelado em Inteligência Artificial e tenho interesse em tecnologia, programação e desenvolvimento de sistemas, focado na aprendizagem em Machine Learning, Deep Learning, Reinforcement Learning e principalmente em sistemas de inteligência integrados há um sistema mecânico/robótico. </p>
-    </section>
-
-    <section>
-        <h2>Projetos</h2>
-        <ul>
-            <li>Projeto de lógica de programação: https://github.com/amanciofilipe-byte/Sistema-Bancario/blob/main/Upload%20files</li>
-            <li>Site simples em HTML e CSS: </li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Hard Skills</h2>
-        <p>HTML, CSS, JavaScript, Python,Google Colab,NLP</p>
-         
-        <h2>Soft Skills</h2>
-         <p>Comunicação, Trabalho em Equipe, Resolução de Problemas, gerenciamneto de Projetos e Pessoas.</p>
-    </section>
-
-<section>
-    <h2>Experiência Profissional</h2>
-
-    <h3>Estágio em Tecnologia (Exemplo)</h3>
-    <p><strong>Empresa:</strong> Centro Medico VP</p>
-    <p><strong>Período:</strong> 2023 - Atual</p>
-    <p>
-        Atuação no manuseio de soluções para problemas de comunicação, análise de dados
-        e suporte em projetos envolvendo inteligência artificial.
-    </p>
-
-    <h3>Freelancer (Opcional)</h3>
-    <p>
-        Desenvolvimento de pequenos projetos web utilizando HTML, CSS e JavaScript e python.
-    </p>
-</section>
-
-<section>
-    <h2>Formação Acadêmica</h2>
-
-    <p><strong>Curso:</strong> Bacharelado em Inteligência Artificial</p>
-    <p><strong>Instituição:</strong> Centro Universitário de Brasilia</p>
-    <p><strong>Período:</strong> 2026 - 2029</p>
-
-</section>
-
-<section>
-    <h2>Certificações</h2>
-
-    <ul>
-        <li>Curso de Inglês - Casa Thomas Jerfeson</li>
-        <li>Claud - AWS</li>
-        <li>Machine Learning - Google Colab</li>
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">Filipe<span>.</span></span>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#habilidades">Skills</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#contato">Contato</a></li>
     </ul>
+  </nav>
 
-</section>
+  <!-- ═══════════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">
+        <i class="fas fa-circle"></i>
+        Disponível para oportunidades
+      </div>
 
-<section>
-    <h2>Recomendações</h2>
+      <h1 class="hero-name">
+        Filipe Amancio
+        <span class="line2">da Silva</span>
+      </h1>
 
-    <p>
-        "Filipe é um aluno dedicado, com grande capacidade de aprendizado
-        e excelente desempenho em projetos de tecnologia."
-    </p>
-    <p><strong>- Professor João</strong></p>
+      <p class="hero-sub">
+        Estudante de Inteligência Artificial no UniCEUB.
+        Explorando Machine Learning, Deep Learning e
+        desenvolvimento web para construir soluções inteligentes.
+      </p>
 
-    <p>
-        "Demonstrou comprometimento e habilidade técnica no desenvolvimento
-        de soluções inovadoras."
-    </p>
-    <p><strong>- Supervisor Maria</strong></p>
+      <div class="hero-cta">
+        <a href="#projetos" class="btn btn-primary">
+          <i class="fas fa-folder-open"></i> Ver Projetos
+        </a>
+        <a href="https://github.com/filipe-amancio" target="_blank" class="btn btn-ghost">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/filipe-amancio-6b8b53406" target="_blank" class="btn btn-ghost">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+      </div>
 
-</section>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Projetos</div>
+        </div>
+        <div>
+          <div class="stat-num">2+</div>
+          <div class="stat-label">Anos Exp.</div>
+        </div>
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">Certificações</div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Foto profissional -->
+    <div class="hero-photo">
+      <img src="assets/images/foto_4x5.jpg" alt="Foto de Filipe Amancio"
+           onerror="this.parentElement.innerHTML='<div class=\'hero-photo-placeholder\'><i class=\'fas fa-user\'></i><span>foto_4x5.jpg</span></div>'">
+    </div>
+  </section>
 
+  <div class="divider"></div>
 
+  <!-- ═══════════════════════════════════════
+       SOBRE
+  ════════════════════════════════════════ -->
+  <section id="sobre">
+    <div class="reveal">
+      <p class="section-label">Quem sou</p>
+      <h2 class="section-title">Sobre <span>Mim</span></h2>
+    </div>
 
-    <section>
-        <h2>Contato</h2>
-        <p>Email: amanciofilipe0906@gmail.com<p></p>
-           <p></p> Telefone: (61) 99901-5955<p></p>
-           <p></p> GitHub: https://github.com/amanciofilipe-byte<p></p>
-    </section>
+    <div class="sobre-grid reveal">
+      <div class="sobre-text">
+        <p>
+          Sou estudante de <strong>Bacharelado em Inteligência Artificial</strong> no
+          Centro Universitário de Brasília (UniCEUB), com paixão genuína por tecnologia,
+          programação e desenvolvimento de sistemas inteligentes.
+        </p>
+        <p>
+          Meu foco está em <strong>Machine Learning, Deep Learning,
+          Reinforcement Learning</strong> e na integração de sistemas inteligentes
+          com robótica — áreas que acredito serão centrais para o futuro tecnológico.
+        </p>
+        <p>
+          Atualmente estou em estágio na área de tecnologia, onde aplico
+          suporte técnico, análise de dados e soluções envolvendo IA no dia a dia.
+        </p>
+        <div style="margin-top:2rem;">
+          <a href="mailto:amanciofilipe0906@gmail.com" class="btn btn-primary" style="font-size:0.85rem;">
+            <i class="fas fa-envelope"></i> Entrar em contato
+          </a>
+        </div>
+      </div>
 
+      <div class="sobre-info">
+        <div class="info-item">
+          <i class="fas fa-graduation-cap"></i>
+          <div><div class="stat-label">Formação</div><strong>UniCEUB — Bacharelado em IA</strong></div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div><div class="stat-label">Localização</div><strong>Brasília, DF — Brasil</strong></div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-briefcase"></i>
+          <div><div class="stat-label">Estágio</div><strong>Centro Médico VP — 2023–Atual</strong></div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <div><div class="stat-label">E-mail</div><strong>amanciofilipe0906@gmail.com</strong></div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-phone"></i>
+          <div><div class="stat-label">Telefone</div><strong>(61) 99901-5955</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       HABILIDADES
+  ════════════════════════════════════════ -->
+  <section id="habilidades">
+    <div class="reveal">
+      <p class="section-label">Competências</p>
+      <h2 class="section-title">Hard &amp; <span>Soft Skills</span></h2>
+    </div>
+
+    <div class="reveal">
+      <div class="skills-block">
+        <h3>Tecnologias &amp; Linguagens</h3>
+        <div class="skills-wrap">
+          <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+          <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
+          <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
+          <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+          <span class="skill-tag"><i class="fas fa-brain"></i> Machine Learning</span>
+          <span class="skill-tag"><i class="fas fa-network-wired"></i> Deep Learning</span>
+          <span class="skill-tag"><i class="fas fa-comment-dots"></i> NLP</span>
+          <span class="skill-tag"><i class="fab fa-google"></i> Google Colab</span>
+        </div>
+      </div>
+
+      <div class="skills-block">
+        <h3>Ferramentas &amp; Plataformas</h3>
+        <div class="skills-wrap">
+          <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+          <span class="skill-tag"><i class="fab fa-github"></i> GitHub</span>
+          <span class="skill-tag"><i class="fas fa-code"></i> VS Code</span>
+          <span class="skill-tag"><i class="fab fa-aws"></i> AWS Cloud</span>
+        </div>
+      </div>
+
+      <div class="skills-block">
+        <h3>Soft Skills</h3>
+        <div class="skills-wrap">
+          <span class="skill-tag"><i class="fas fa-comments"></i> Comunicação</span>
+          <span class="skill-tag"><i class="fas fa-users"></i> Trabalho em Equipe</span>
+          <span class="skill-tag"><i class="fas fa-lightbulb"></i> Resolução de Problemas</span>
+          <span class="skill-tag"><i class="fas fa-tasks"></i> Gestão de Projetos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       EXPERIÊNCIA & FORMAÇÃO
+  ════════════════════════════════════════ -->
+  <section id="experiencia">
+    <div class="reveal">
+      <p class="section-label">Trajetória</p>
+      <h2 class="section-title">Experiência &amp; <span>Formação</span></h2>
+    </div>
+
+    <div class="exp-form-grid reveal">
+      <!-- EXPERIÊNCIA -->
+      <div>
+        <div class="skills-block" style="margin-bottom:2rem;">
+          <h3>Experiência Profissional</h3>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="tl-period">2023 — Atual</div>
+            <div class="tl-title">Estágio em Tecnologia</div>
+            <div class="tl-sub">Centro Médico VP · Brasília, DF</div>
+            <div class="tl-desc">
+              Atuação em suporte técnico, análise de dados e implementação
+              de soluções envolvendo Inteligência Artificial no ambiente clínico.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-period">2023 — Atual</div>
+            <div class="tl-title">Freelancer — Dev Web</div>
+            <div class="tl-sub">Projetos Independentes</div>
+            <div class="tl-desc">
+              Desenvolvimento de projetos web utilizando HTML, CSS,
+              JavaScript e Python para clientes e projetos pessoais.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMAÇÃO -->
+      <div>
+        <div class="skills-block" style="margin-bottom:2rem;">
+          <h3>Formação Acadêmica</h3>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="tl-period">2026 — 2029</div>
+            <div class="tl-title">Bacharelado em Inteligência Artificial</div>
+            <div class="tl-sub">UniCEUB — Centro Universitário de Brasília</div>
+            <div class="tl-desc">
+              Foco em ML, Deep Learning, Reinforcement Learning, NLP
+              e sistemas inteligentes integrados à robótica.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-period">Concluído</div>
+            <div class="tl-title">Curso de Inglês</div>
+            <div class="tl-sub">Casa Thomas Jefferson · Brasília</div>
+            <div class="tl-desc">
+              Formação completa em inglês com foco em leitura técnica
+              e comunicação profissional.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       PROJETOS
+  ════════════════════════════════════════ -->
+  <section id="projetos">
+    <div class="reveal">
+      <p class="section-label">Portfólio</p>
+      <h2 class="section-title">Meus <span>Projetos</span></h2>
+    </div>
+
+    <div class="projects-grid reveal">
+
+      <a class="project-card" href="https://github.com/filipe-amancio/PortfolioHUB" target="_blank">
+        <div class="project-icon"><i class="fas fa-globe"></i></div>
+        <div class="project-title">PortfolioHUB</div>
+        <div class="project-desc">
+          Portfólio pessoal desenvolvido com HTML, CSS e JavaScript.
+          Publicado via GitHub Pages com design responsivo e moderno.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">HTML</span>
+          <span class="project-tag">CSS</span>
+          <span class="project-tag">JavaScript</span>
+        </div>
+        <div class="project-link">
+          <i class="fab fa-github"></i> github.com/filipe-amancio/PortfolioHUB
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/filipe-amancio/Sistema-De-Biblioteca" target="_blank">
+        <div class="project-icon"><i class="fas fa-book"></i></div>
+        <div class="project-title">Sistema de Biblioteca</div>
+        <div class="project-desc">
+          Sistema de gerenciamento de biblioteca em Python com menu interativo
+          no terminal. Suporta cadastro, consulta, empréstimo e devolução de livros.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+        </div>
+        <div class="project-link">
+          <i class="fab fa-github"></i> github.com/filipe-amancio/Sistema-De-Biblioteca
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/filipe-amancio/Sistema-Bancario" target="_blank">
+        <div class="project-icon"><i class="fas fa-landmark"></i></div>
+        <div class="project-title">Sistema Bancário</div>
+        <div class="project-desc">
+          Simulação de sistema bancário desenvolvido como projeto acadêmico,
+          abordando conceitos de POO e fluxo de dados.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Programação</span>
+        </div>
+        <div class="project-link">
+          <i class="fab fa-github"></i> github.com/filipe-amancio/Sistema-Bancario
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       CERTIFICAÇÕES
+  ════════════════════════════════════════ -->
+  <section id="certificacoes">
+    <div class="reveal">
+      <p class="section-label">Aprendizado contínuo</p>
+      <h2 class="section-title"><span>Certificações</span></h2>
+    </div>
+
+    <div class="certs-grid reveal">
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-language"></i></div>
+        <div class="cert-name">Curso de Inglês<br><span style="color:var(--muted);font-size:0.78rem">Casa Thomas Jefferson</span></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fab fa-aws"></i></div>
+        <div class="cert-name">Cloud Computing — AWS<br><span style="color:var(--muted);font-size:0.78rem">Amazon Web Services</span></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-brain"></i></div>
+        <div class="cert-name">Machine Learning — Google Colab<br><span style="color:var(--muted);font-size:0.78rem">Google</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       RECOMENDAÇÕES
+  ════════════════════════════════════════ -->
+  <section id="recomendacoes">
+    <div class="reveal">
+      <p class="section-label">O que dizem</p>
+      <h2 class="section-title"><span>Recomendações</span></h2>
+    </div>
+
+    <div class="rec-grid reveal">
+      <div class="rec-card">
+        <div class="rec-quote">"</div>
+        <p class="rec-text">
+          Filipe é um aluno dedicado, com grande capacidade de aprendizado
+          e disposição para ir além do conteúdo ensinado em sala de aula.
+        </p>
+        <div class="rec-author">— Professor João</div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-quote">"</div>
+        <p class="rec-text">
+          Demonstrou comprometimento e habilidade técnica em projetos,
+          entregando resultados de qualidade dentro dos prazos estabelecidos.
+        </p>
+        <div class="rec-author">— Supervisora Maria</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       CONTATO
+  ════════════════════════════════════════ -->
+  <section id="contato">
+    <div class="contact-card reveal">
+      <p class="section-label">Vamos conversar</p>
+      <h2 class="section-title" style="display:block;border:none;">Entre em <span>Contato</span></h2>
+      <p class="contact-sub">
+        Aberto a estágios, colaborações e projetos freelance.
+        Respondo em até 24h!
+      </p>
+
+      <div class="contact-links">
+        <a href="mailto:amanciofilipe0906@gmail.com" class="contact-link">
+          <i class="fas fa-envelope"></i> amanciofilipe0906@gmail.com
+        </a>
+        <a href="https://github.com/filipe-amancio" target="_blank" class="contact-link">
+          <i class="fab fa-github"></i> github.com/filipe-amancio
+        </a>
+        <a href="https://www.linkedin.com/in/filipe-amancio-6b8b53406" target="_blank" class="contact-link">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="tel:+5561999015955" class="contact-link">
+          <i class="fas fa-phone"></i> (61) 99901-5955
+        </a>
+      </div>
+
+      <a href="mailto:amanciofilipe0906@gmail.com" class="btn btn-primary" style="font-size:0.95rem;padding:1rem 2.5rem;">
+        <i class="fas fa-paper-plane"></i> Enviar Mensagem
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Filipe Amancio da Silva · Desenvolvido com HTML, CSS &amp; JavaScript · Publicado no GitHub Pages</p>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script>
+    // Cursor personalizado
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx - 5  + 'px';
+      cursor.style.top  = my - 5  + 'px';
+    });
+
+    (function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx - 18 + 'px';
+      ring.style.top  = ry - 18 + 'px';
+      requestAnimationFrame(animRing);
+    })();
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(r => observer.observe(r));
+  </script>
 </body>
 </html>
