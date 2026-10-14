@@ -1,1251 +1,301 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Filipe Amancio — Portfólio</title>
+  <title>Filipe Amancio — Inteligência Artificial & Python</title>
+  <meta name="description" content="Portfólio de Filipe Amancio, estudante de Inteligência Artificial no UniCEUB. Projetos em Python, Machine Learning, agentes de IA e desenvolvimento web.">
+  <meta name="author" content="Filipe Amancio da Silva">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+  <!-- Open Graph (prévia ao compartilhar no LinkedIn/WhatsApp) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Filipe Amancio — Inteligência Artificial & Python">
+  <meta property="og:description" content="Estudante de IA construindo sistemas inteligentes com Python, Machine Learning e automação.">
+  <meta property="og:url" content="https://filipe-amancio.github.io/PortfolioHUB/">
+  <meta property="og:image" content="https://filipe-amancio.github.io/PortfolioHUB/assets/images/filipe-amancio.jpg">
+  <meta property="og:locale" content="pt_BR">
+
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    /* ============================================================
-       VARIÁVEIS & RESET
-    ============================================================ */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg:        #060910;
-      --bg2:       #0c1118;
-      --bg3:       #111827;
-      --border:    rgba(255,255,255,0.07);
-      --accent:    #00e5ff;
-      --accent2:   #7c3aed;
-      --text:      #e2e8f0;
-      --muted:     #64748b;
-      --white:     #ffffff;
-      --card:      rgba(255,255,255,0.03);
-      --font-head: 'Syne', sans-serif;
-      --font-body: 'DM Sans', sans-serif;
-      --radius:    14px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 1rem;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ── RUÍDO DE FUNDO ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ============================================================
-       CURSOR PERSONALIZADO
-    ============================================================ */
-    .cursor {
-      width: 10px; height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.15s ease;
-      mix-blend-mode: difference;
-    }
-
-    .cursor-ring {
-      width: 36px; height: 36px;
-      border: 1.5px solid var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      transition: all 0.12s ease;
-      opacity: 0.5;
-    }
-
-    /* ============================================================
-       NAV
-    ============================================================ */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 500;
-      padding: 1.25rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(6,9,16,0.85);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: var(--font-head);
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--white);
-      letter-spacing: -0.03em;
-    }
-
-    .nav-logo span { color: var(--accent); }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      transition: color 0.25s;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-
-    /* ============================================================
-       HERO
-    ============================================================ */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 10rem 5% 6rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Glow de fundo */
-    #hero::after {
-      content: '';
-      position: absolute;
-      top: -200px; left: -200px;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 820px;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      background: rgba(0,229,255,0.07);
-      border: 1px solid rgba(0,229,255,0.2);
-      padding: 0.35rem 0.85rem;
-      border-radius: 50px;
-      margin-bottom: 1.75rem;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .hero-tag i { font-size: 0.65rem; }
-
-    .hero-name {
-      font-family: var(--font-head);
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 800;
-      color: var(--white);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      animation: fadeUp 0.6s 0.1s ease both;
-    }
-
-    .hero-name .line2 {
-      display: block;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      margin-top: 1.5rem;
-      font-size: 1.1rem;
-      color: var(--muted);
-      font-weight: 300;
-      max-width: 560px;
-      animation: fadeUp 0.6s 0.2s ease both;
-    }
-
-    .hero-cta {
-      margin-top: 2.75rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      animation: fadeUp 0.6s 0.3s ease both;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.75rem;
-      border-radius: 10px;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.25s;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #000;
-    }
-
-    .btn-primary:hover {
-      background: #fff;
-      transform: translateY(-2px);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    /* Foto hero */
-    .hero-photo {
-      position: absolute;
-      right: 5%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: clamp(200px, 22vw, 310px);
-      aspect-ratio: 3/4;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 0 60px rgba(0,229,255,0.08);
-      animation: fadeIn 0.8s 0.4s ease both;
-    }
-
-    .hero-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-photo-placeholder {
-      width: 100%; height: 100%;
-      background: var(--bg3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    .hero-photo-placeholder i { font-size: 3rem; color: var(--border); }
-
-    /* Stats */
-    .hero-stats {
-      display: flex;
-      gap: 2.5rem;
-      margin-top: 3rem;
-      animation: fadeUp 0.6s 0.4s ease both;
-    }
-
-    .stat-num {
-      font-family: var(--font-head);
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: var(--white);
-    }
-
-    .stat-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    /* ============================================================
-       SEÇÕES COMUNS
-    ============================================================ */
-    section {
-      padding: 6rem 5%;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin-bottom: 0.6rem;
-    }
-
-    .section-title {
-      font-family: var(--font-head);
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      font-weight: 800;
-      color: var(--white);
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 3.5rem;
-    }
-
-    .section-title span { color: var(--accent); }
-
-    /* Linha divisória */
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-      margin: 0 5%;
-      width: 90%;
-    }
-
-    /* ============================================================
-       SOBRE
-    ============================================================ */
-    #sobre .sobre-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .sobre-text p {
-      color: var(--muted);
-      font-size: 1.02rem;
-      font-weight: 300;
-      margin-bottom: 1.25rem;
-    }
-
-    .sobre-text p strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .sobre-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .info-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 0.88rem;
-    }
-
-    .info-item i {
-      color: var(--accent);
-      width: 16px;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    .info-item span { color: var(--muted); }
-    .info-item strong { color: var(--text); font-weight: 500; }
-
-    /* ============================================================
-       SKILLS
-    ============================================================ */
-    #habilidades { background: var(--bg2); }
-
-    .skills-block {
-      margin-bottom: 3rem;
-    }
-
-    .skills-block h3 {
-      font-family: var(--font-head);
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--white);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .skills-block h3::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .skills-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-    }
-
-    .skill-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      font-size: 0.85rem;
-      color: var(--text);
-      font-weight: 400;
-      transition: all 0.2s;
-    }
-
-    .skill-tag:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(0,229,255,0.05);
-    }
-
-    .skill-tag i { font-size: 0.8rem; }
-
-    /* ============================================================
-       EXPERIÊNCIA & FORMAÇÃO
-    ============================================================ */
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 6px; bottom: 0;
-      width: 1px;
-      background: var(--border);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 2.5rem;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -2rem;
-      top: 6px;
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 12px rgba(0,229,255,0.5);
-      transform: translateX(-4px);
-    }
-
-    .tl-period {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.3rem;
-    }
-
-    .tl-title {
-      font-family: var(--font-head);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.2rem;
-    }
-
-    .tl-sub {
-      font-size: 0.85rem;
-      color: var(--accent2);
-      font-weight: 500;
-      margin-bottom: 0.6rem;
-    }
-
-    .tl-desc {
-      font-size: 0.9rem;
-      color: var(--muted);
-      font-weight: 300;
-      line-height: 1.65;
-    }
-
-    .exp-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-    }
-
-    /* ============================================================
-       PROJETOS
-    ============================================================ */
-    #projetos { background: var(--bg2); }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: all 0.3s;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,229,255,0.03), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .project-card:hover {
-      border-color: rgba(0,229,255,0.3);
-      transform: translateY(-5px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    }
-
-    .project-card:hover::before { opacity: 1; }
-
-    .project-icon {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      background: rgba(0,229,255,0.08);
-      border: 1px solid rgba(0,229,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      color: var(--accent);
-    }
-
-    .project-title {
-      font-family: var(--font-head);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--white);
-    }
-
-    .project-desc {
-      font-size: 0.88rem;
-      color: var(--muted);
-      font-weight: 300;
-      flex: 1;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .project-tag {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--accent);
-      background: rgba(0,229,255,0.07);
-      border: 1px solid rgba(0,229,255,0.15);
-      padding: 0.2rem 0.6rem;
-      border-radius: 50px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .project-link {
-      font-size: 0.82rem;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.2s;
-    }
-
-    .project-card:hover .project-link { color: var(--accent); }
-
-    /* ============================================================
-       CERTIFICAÇÕES
-    ============================================================ */
-    .certs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1rem;
-    }
-
-    .cert-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.4rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      transition: border-color 0.25s;
-    }
-
-    .cert-card:hover { border-color: rgba(124,58,237,0.4); }
-
-    .cert-icon {
-      width: 38px; height: 38px;
-      border-radius: 8px;
-      background: rgba(124,58,237,0.1);
-      border: 1px solid rgba(124,58,237,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent2);
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .cert-name {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1.4;
-    }
-
-    /* ============================================================
-       RECOMENDAÇÕES
-    ============================================================ */
-    #recomendacoes { background: var(--bg2); }
-
-    .rec-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .rec-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      position: relative;
-    }
-
-    .rec-quote {
-      font-size: 3rem;
-      line-height: 1;
-      color: var(--accent);
-      opacity: 0.2;
-      font-family: Georgia, serif;
-      position: absolute;
-      top: 1rem; left: 1.5rem;
-    }
-
-    .rec-text {
-      font-size: 0.95rem;
-      color: var(--text);
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.7;
-      margin-top: 1rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .rec-author {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    /* ============================================================
-       CONTATO
-    ============================================================ */
-    #contato {
-      text-align: center;
-      padding: 8rem 5%;
-    }
-
-    .contact-card {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    .contact-card .section-title { margin-bottom: 1.25rem; }
-
-    .contact-sub {
-      color: var(--muted);
-      font-size: 1rem;
-      font-weight: 300;
-      margin-bottom: 3rem;
-    }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 3rem;
-    }
-
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.8rem 1.5rem;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: all 0.25s;
-    }
-
-    .contact-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .contact-link i { font-size: 1rem; }
-
-    /* ============================================================
-       FOOTER
-    ============================================================ */
-    footer {
-      text-align: center;
-      padding: 2rem 5%;
-      border-top: 1px solid var(--border);
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    /* ============================================================
-       ANIMAÇÕES
-    ============================================================ */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* Scroll reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ============================================================
-       RESPONSIVO
-    ============================================================ */
-    @media (max-width: 900px) {
-      .hero-photo { display: none; }
-      #sobre .sobre-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .exp-form-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .rec-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-    }
-
-    @media (max-width: 600px) {
-      section { padding: 4rem 5%; }
-      .hero-stats { gap: 1.5rem; }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Aplica o tema salvo antes da renderização (evita "piscar") -->
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      const t = localStorage.getItem('theme');
+      if (t) document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-  <!-- CURSOR -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#topo" class="nav__brand" aria-label="Filipe Amancio — início">Filipe Amancio</a>
 
-  <!-- NAV -->
-  <nav>
-    <span class="nav-logo">Filipe<span>.</span></span>
-    <ul class="nav-links">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#habilidades">Skills</a></li>
-      <li><a href="#experiencia">Experiência</a></li>
-      <li><a href="#projetos">Projetos</a></li>
-      <li><a href="#contato">Contato</a></li>
-    </ul>
-  </nav>
+      <nav aria-label="Navegação principal">
+        <ul class="nav__links" id="navLinks">
+          <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#trajetoria">Trajetória</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
 
-  <!-- ═══════════════════════════════════════
-       HERO
-  ════════════════════════════════════════ -->
-  <section id="hero">
-    <div class="hero-inner">
-      <div class="hero-tag">
-        <i class="fas fa-circle"></i>
-        Disponível para oportunidades
-      </div>
-
-      <h1 class="hero-name">
-        Filipe Amancio
-        <span class="line2">da Silva</span>
-      </h1>
-
-      <p class="hero-sub">
-        Estudante de Inteligência Artificial no UniCEUB.
-        Explorando Machine Learning, Deep Learning e
-        desenvolvimento web para construir soluções inteligentes.
-      </p>
-
-      <div class="hero-cta">
-        <a href="#projetos" class="btn btn-primary">
-          <i class="fas fa-folder-open"></i> Ver Projetos
-        </a>
-        <a href="https://github.com/filipe-amancio" target="_blank" class="btn btn-ghost">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/filipe-amancio-6b8b53406" target="_blank" class="btn btn-ghost">
-          <i class="fab fa-linkedin"></i> LinkedIn
-        </a>
-      </div>
-
-      <div class="hero-stats">
-        <div>
-          <div class="stat-num">3+</div>
-          <div class="stat-label">Projetos</div>
-        </div>
-        <div>
-          <div class="stat-num">2+</div>
-          <div class="stat-label">Anos Exp.</div>
-        </div>
-        <div>
-          <div class="stat-num">3</div>
-          <div class="stat-label">Certificações</div>
-        </div>
+      <div class="nav__actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Alternar tema claro/escuro">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></svg>
+        </button>
+        <button class="icon-button nav__menu" id="menuToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+        </button>
       </div>
     </div>
+  </header>
 
-    <!-- Foto profissional -->
-    <div class="hero-photo">
-     <img src="assets/images/image_protifolio.png" alt="Foto de Filipe Amancio"
-           onerror="this.parentElement.innerHTML='<div class=\'hero-photo-placeholder\'><i class=\'fas fa-user\'></i><span>foto_4x5.jpg</span></div>'">
-    </div>
-  </section>
+  <main id="conteudo">
 
-  <div class="divider"></div>
-
-  <!-- ═══════════════════════════════════════
-       SOBRE
-  ════════════════════════════════════════ -->
-  <section id="sobre">
-    <div class="reveal">
-      <p class="section-label">Quem sou</p>
-      <h2 class="section-title">Sobre <span>Mim</span></h2>
-    </div>
-
-    <div class="sobre-grid reveal">
-      <div class="sobre-text">
-        <p>
-          Sou estudante de <strong>Bacharelado em Inteligência Artificial</strong> no
-          Centro Universitário de Brasília (UniCEUB), com paixão genuína por tecnologia,
-          programação e desenvolvimento de sistemas inteligentes.
-        </p>
-        <p>
-          Meu foco está em <strong>Machine Learning, Deep Learning,
-          Reinforcement Learning</strong> e na integração de sistemas inteligentes
-          com robótica — áreas que acredito serão centrais para o futuro tecnológico.
-        </p>
-        <p>
-          Atualmente estou em estágio na área de tecnologia, onde aplico
-          suporte técnico, análise de dados e soluções envolvendo IA no dia a dia.
-        </p>
-        <div style="margin-top:2rem;">
-          <a href="mailto:amanciofilipe0906@gmail.com" class="btn btn-primary" style="font-size:0.85rem;">
-            <i class="fas fa-envelope"></i> Entrar em contato
-          </a>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="topo">
+      <div class="container hero__grid">
+        <div class="hero__text">
+          <p class="eyebrow">Inteligência Artificial · Python · Brasília</p>
+          <h1 class="text-display">Construo sistemas inteligentes que resolvem problemas reais.</h1>
+          <p class="text-lead hero__lead">
+            Sou Filipe Amancio, estudante de Inteligência Artificial no UniCEUB.
+            Desenvolvo com Python, Machine Learning e automação — de agentes de IA locais a aplicações web.
+          </p>
+          <div class="hero__cta">
+            <a href="#projetos" class="button button--primary">Ver projetos</a>
+            <a href="#contato" class="link-secondary">Fale comigo</a>
+          </div>
+          <p class="status"><span class="status__dot" aria-hidden="true"></span>Aberto a estágios e projetos</p>
         </div>
+
+        <figure class="hero__photo">
+          <img src="assets/images/filipe-amancio.jpg" width="720" height="1280"
+               alt="Retrato profissional de Filipe Amancio" fetchpriority="high">
+        </figure>
       </div>
+    </section>
 
-      <div class="sobre-info">
-        <div class="info-item">
-          <i class="fas fa-graduation-cap"></i>
-          <div><div class="stat-label">Formação</div><strong>UniCEUB — Bacharelado em IA</strong></div>
-        </div>
-        <div class="info-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <div><div class="stat-label">Localização</div><strong>Brasília, DF — Brasil</strong></div>
-        </div>
-        <div class="info-item">
-          <i class="fas fa-briefcase"></i>
-          <div><div class="stat-label">Estágio</div><strong>Centro Médico VP — 2023–Atual</strong></div>
-        </div>
-        <div class="info-item">
-          <i class="fas fa-envelope"></i>
-          <div><div class="stat-label">E-mail</div><strong>amanciofilipe0906@gmail.com</strong></div>
-        </div>
-        <div class="info-item">
-          <i class="fas fa-phone"></i>
-          <div><div class="stat-label">Telefone</div><strong>(61) 99901-5955</strong></div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- ============ PROJETOS ============ -->
+    <section class="section section--surface" id="projetos">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Projetos</p>
+          <h2 class="text-headline">Trabalho selecionado.</h2>
+        </header>
 
-  <div class="divider"></div>
+        <!-- Destaque -->
+        <article class="feature reveal">
+          <div class="feature__body">
+            <p class="feature__kicker">Em destaque · Open source</p>
+            <h3 class="text-title feature__title">JarvisAI</h3>
+            <p class="feature__desc">
+              Agente de IA pessoal que roda 100% local com Ollama. Vai além de um chatbot:
+              interpreta pedidos, usa ferramentas reais, mantém memória de projeto e executa
+              tarefas com confirmação do usuário e backup automático.
+            </p>
+            <ul class="feature__points">
+              <li>LLM local — sem enviar dados para a nuvem</li>
+              <li>Sistema de ferramentas e memória persistente</li>
+              <li>Execução segura com confirmação e editor com backup</li>
+            </ul>
+            <ul class="tags" aria-label="Tecnologias">
+              <li>Python</li><li>Ollama</li><li>LLM</li><li>Agentes</li>
+            </ul>
+            <a class="link-secondary" href="https://github.com/filipe-amancio/JarvisAI" target="_blank" rel="noopener">Ver no GitHub</a>
+          </div>
+          <div class="feature__visual" aria-hidden="true">
+            <div class="terminal">
+              <div class="terminal__bar"><span></span><span></span><span></span></div>
+              <pre class="terminal__body"><span class="t-dim">$</span> python jarvis.py
+<span class="t-accent">Jarvis</span> v5.1 · modelo local carregado
 
-  <!-- ═══════════════════════════════════════
-       HABILIDADES
-  ════════════════════════════════════════ -->
-  <section id="habilidades">
-    <div class="reveal">
-      <p class="section-label">Competências</p>
-      <h2 class="section-title">Hard &amp; <span>Soft Skills</span></h2>
-    </div>
-
-    <div class="reveal">
-      <div class="skills-block">
-        <h3>Tecnologias &amp; Linguagens</h3>
-        <div class="skills-wrap">
-          <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
-          <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
-          <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
-          <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
-          <span class="skill-tag"><i class="fas fa-brain"></i> Machine Learning</span>
-          <span class="skill-tag"><i class="fas fa-network-wired"></i> Deep Learning</span>
-          <span class="skill-tag"><i class="fas fa-comment-dots"></i> NLP</span>
-          <span class="skill-tag"><i class="fab fa-google"></i> Google Colab</span>
-        </div>
-      </div>
-
-      <div class="skills-block">
-        <h3>Ferramentas &amp; Plataformas</h3>
-        <div class="skills-wrap">
-          <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
-          <span class="skill-tag"><i class="fab fa-github"></i> GitHub</span>
-          <span class="skill-tag"><i class="fas fa-code"></i> VS Code</span>
-          <span class="skill-tag"><i class="fab fa-aws"></i> AWS Cloud</span>
-        </div>
-      </div>
-
-      <div class="skills-block">
-        <h3>Soft Skills</h3>
-        <div class="skills-wrap">
-          <span class="skill-tag"><i class="fas fa-comments"></i> Comunicação</span>
-          <span class="skill-tag"><i class="fas fa-users"></i> Trabalho em Equipe</span>
-          <span class="skill-tag"><i class="fas fa-lightbulb"></i> Resolução de Problemas</span>
-          <span class="skill-tag"><i class="fas fa-tasks"></i> Gestão de Projetos</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ═══════════════════════════════════════
-       EXPERIÊNCIA & FORMAÇÃO
-  ════════════════════════════════════════ -->
-  <section id="experiencia">
-    <div class="reveal">
-      <p class="section-label">Trajetória</p>
-      <h2 class="section-title">Experiência &amp; <span>Formação</span></h2>
-    </div>
-
-    <div class="exp-form-grid reveal">
-      <!-- EXPERIÊNCIA -->
-      <div>
-        <div class="skills-block" style="margin-bottom:2rem;">
-          <h3>Experiência Profissional</h3>
-        </div>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="tl-period">2023 — Atual</div>
-            <div class="tl-title">Estágio em Tecnologia</div>
-            <div class="tl-sub">Centro Médico VP · Brasília, DF</div>
-            <div class="tl-desc">
-              Atuação em suporte técnico, análise de dados e implementação
-              de soluções envolvendo Inteligência Artificial no ambiente clínico.
+<span class="t-dim">você ›</span> organize os arquivos do projeto
+<span class="t-accent">jarvis ›</span> Plano: listar, agrupar por tipo,
+         mover 12 arquivos.
+         <span class="t-warn">Confirmar execução? [s/N]</span></pre>
             </div>
           </div>
+        </article>
 
-          <div class="timeline-item">
-            <div class="tl-period">2023 — Atual</div>
-            <div class="tl-title">Freelancer — Dev Web</div>
-            <div class="tl-sub">Projetos Independentes</div>
-            <div class="tl-desc">
-              Desenvolvimento de projetos web utilizando HTML, CSS,
-              JavaScript e Python para clientes e projetos pessoais.
+        <div class="projects reveal">
+          <article class="project">
+            <p class="project__kicker">Web · Cliente</p>
+            <h3 class="project__title">Site institucional Rapé Xingu</h3>
+            <p class="project__desc">Landing page responsiva para marca de produtos artesanais, publicada na Vercel.</p>
+            <ul class="tags"><li>HTML</li><li>CSS</li><li>Vercel</li></ul>
+            <div class="project__links">
+              <a class="link-secondary" href="https://site-rapechingu.vercel.app" target="_blank" rel="noopener">Ver site</a>
+              <a class="link-tertiary" href="https://github.com/filipe-amancio/site-rapechingu" target="_blank" rel="noopener">Código</a>
             </div>
-          </div>
+          </article>
+
+          <article class="project">
+            <p class="project__kicker">Python</p>
+            <h3 class="project__title">Sistema de Biblioteca</h3>
+            <p class="project__desc">Menu interativo no terminal para cadastrar, consultar, emprestar e devolver livros.</p>
+            <ul class="tags"><li>Python</li><li>Estruturas de dados</li></ul>
+            <div class="project__links">
+              <a class="link-secondary" href="https://github.com/filipe-amancio/Sistema-De-Biblioteca" target="_blank" rel="noopener">Ver no GitHub</a>
+            </div>
+          </article>
+
+          <article class="project">
+            <p class="project__kicker">Python · Acadêmico</p>
+            <h3 class="project__title">Sistema Bancário</h3>
+            <p class="project__desc">Simulação de operações bancárias — depósito, saque e extrato — com lógica de programação.</p>
+            <ul class="tags"><li>Python</li><li>Lógica</li></ul>
+            <div class="project__links">
+              <a class="link-secondary" href="https://github.com/filipe-amancio/Sistema-Bancario" target="_blank" rel="noopener">Ver no GitHub</a>
+            </div>
+          </article>
+
+          <article class="project">
+            <p class="project__kicker">Web</p>
+            <h3 class="project__title">PortfolioHUB</h3>
+            <p class="project__desc">Este portfólio: HTML, CSS e JavaScript puros, tema claro/escuro e foco em acessibilidade.</p>
+            <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+            <div class="project__links">
+              <a class="link-secondary" href="https://github.com/filipe-amancio/PortfolioHUB" target="_blank" rel="noopener">Ver no GitHub</a>
+            </div>
+          </article>
         </div>
       </div>
+    </section>
 
-      <!-- FORMAÇÃO -->
-      <div>
-        <div class="skills-block" style="margin-bottom:2rem;">
-          <h3>Formação Acadêmica</h3>
+    <!-- ============ SOBRE + SKILLS ============ -->
+    <section class="section" id="sobre">
+      <div class="container about">
+        <div class="about__text reveal">
+          <p class="eyebrow">Sobre</p>
+          <h2 class="text-headline">IA aplicada, do modelo ao mundo físico.</h2>
+          <p class="text-lead">
+            Curso Bacharelado em Inteligência Artificial no Centro Universitário de Brasília (UniCEUB).
+            Meu foco está em Machine Learning, Deep Learning e Reinforcement Learning — e,
+            principalmente, em integrar sistemas inteligentes a sistemas mecânicos e robóticos.
+          </p>
+          <p>
+            No dia a dia, aplico tecnologia para resolver problemas de comunicação e de dados,
+            e uso projetos pessoais para aprender fazendo: cada repositório é um passo a mais
+            em direção a sistemas de IA confiáveis e úteis.
+          </p>
         </div>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="tl-period">2026 — 2029</div>
-            <div class="tl-title">Bacharelado em Inteligência Artificial</div>
-            <div class="tl-sub">UniCEUB — Centro Universitário de Brasília</div>
-            <div class="tl-desc">
-              Foco em ML, Deep Learning, Reinforcement Learning, NLP
-              e sistemas inteligentes integrados à robótica.
-            </div>
+
+        <dl class="skills reveal">
+          <div class="skills__group">
+            <dt>Linguagens</dt>
+            <dd>Python, JavaScript, HTML, CSS</dd>
+          </div>
+          <div class="skills__group">
+            <dt>IA & Dados</dt>
+            <dd>Machine Learning, Deep Learning, NLP, LLMs locais, Scikit-Learn, TensorFlow, Pandas, NumPy</dd>
+          </div>
+          <div class="skills__group">
+            <dt>Ferramentas</dt>
+            <dd>Git, GitHub, VS Code, Google Colab, Ollama, AWS, Vercel</dd>
+          </div>
+          <div class="skills__group">
+            <dt>Estudando agora</dt>
+            <dd>MLOps, Engenharia de Dados, Redes Neurais</dd>
+          </div>
+          <div class="skills__group">
+            <dt>Competências</dt>
+            <dd>Comunicação, trabalho em equipe, resolução de problemas, gestão de projetos e pessoas</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ TRAJETÓRIA ============ -->
+    <section class="section section--surface" id="trajetoria">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Trajetória</p>
+          <h2 class="text-headline">Experiência e formação.</h2>
+        </header>
+
+        <div class="timeline-grid">
+          <div class="reveal">
+            <h3 class="timeline__label">Experiência</h3>
+            <ol class="timeline">
+              <li class="timeline__item">
+                <p class="timeline__period">2023 — atual</p>
+                <h4 class="timeline__title">Estágio em Tecnologia</h4>
+                <p class="timeline__org">Centro Médico VP · Brasília, DF</p>
+                <p class="timeline__desc">Suporte técnico, análise de dados e soluções para problemas de comunicação, incluindo projetos com inteligência artificial em ambiente clínico.</p>
+              </li>
+              <li class="timeline__item">
+                <p class="timeline__period">2023 — atual</p>
+                <h4 class="timeline__title">Desenvolvedor freelancer</h4>
+                <p class="timeline__org">Projetos independentes</p>
+                <p class="timeline__desc">Sites e pequenas aplicações com HTML, CSS, JavaScript e Python, do levantamento de requisitos à publicação.</p>
+              </li>
+            </ol>
           </div>
 
-          <div class="timeline-item">
-            <div class="tl-period">Concluído</div>
-            <div class="tl-title">Curso de Inglês</div>
-            <div class="tl-sub">Casa Thomas Jefferson · Brasília</div>
-            <div class="tl-desc">
-              Formação completa em inglês com foco em leitura técnica
-              e comunicação profissional.
-            </div>
+          <div class="reveal">
+            <h3 class="timeline__label">Formação</h3>
+            <ol class="timeline">
+              <li class="timeline__item">
+                <p class="timeline__period">2026 — 2029</p>
+                <h4 class="timeline__title">Bacharelado em Inteligência Artificial</h4>
+                <p class="timeline__org">UniCEUB — Centro Universitário de Brasília</p>
+                <p class="timeline__desc">Machine Learning, Deep Learning, Reinforcement Learning, NLP e sistemas inteligentes integrados à robótica.</p>
+              </li>
+            </ol>
+
+            <h3 class="timeline__label timeline__label--spaced">Certificações</h3>
+            <ul class="certs">
+              <li><span>Cloud Computing</span><span class="certs__org">AWS</span></li>
+              <li><span>Machine Learning</span><span class="certs__org">Google Colab</span></li>
+              <li><span>Inglês</span><span class="certs__org">Casa Thomas Jefferson</span></li>
+            </ul>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="divider"></div>
-
-  <!-- ═══════════════════════════════════════
-       PROJETOS
-  ════════════════════════════════════════ -->
-  <section id="projetos">
-    <div class="reveal">
-      <p class="section-label">Portfólio</p>
-      <h2 class="section-title">Meus <span>Projetos</span></h2>
-    </div>
-
-    <div class="projects-grid reveal">
-
-      <a class="project-card" href="https://github.com/filipe-amancio/PortfolioHUB" target="_blank">
-        <div class="project-icon"><i class="fas fa-globe"></i></div>
-        <div class="project-title">PortfolioHUB</div>
-        <div class="project-desc">
-          Portfólio pessoal desenvolvido com HTML, CSS e JavaScript.
-          Publicado via GitHub Pages com design responsivo e moderno.
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">HTML</span>
-          <span class="project-tag">CSS</span>
-          <span class="project-tag">JavaScript</span>
-        </div>
-        <div class="project-link">
-          <i class="fab fa-github"></i> github.com/filipe-amancio/PortfolioHUB
-        </div>
-      </a>
-
-      <a class="project-card" href="https://github.com/filipe-amancio/Sistema-De-Biblioteca" target="_blank">
-        <div class="project-icon"><i class="fas fa-book"></i></div>
-        <div class="project-title">Sistema de Biblioteca</div>
-        <div class="project-desc">
-          Sistema de gerenciamento de biblioteca em Python com menu interativo
-          no terminal. Suporta cadastro, consulta, empréstimo e devolução de livros.
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">Python</span>
-        </div>
-        <div class="project-link">
-          <i class="fab fa-github"></i> github.com/filipe-amancio/Sistema-De-Biblioteca
-        </div>
-      </a>
-
-      <a class="project-card" href="https://github.com/filipe-amancio/Sistema-Bancario" target="_blank">
-        <div class="project-icon"><i class="fas fa-landmark"></i></div>
-        <div class="project-title">Sistema Bancário</div>
-        <div class="project-desc">
-          Simulação de sistema bancário desenvolvido como projeto acadêmico,
-          abordando conceitos de POO e fluxo de dados.
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">Programação</span>
-        </div>
-        <div class="project-link">
-          <i class="fab fa-github"></i> github.com/filipe-amancio/Sistema-Bancario
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ═══════════════════════════════════════
-       CERTIFICAÇÕES
-  ════════════════════════════════════════ -->
-  <section id="certificacoes">
-    <div class="reveal">
-      <p class="section-label">Aprendizado contínuo</p>
-      <h2 class="section-title"><span>Certificações</span></h2>
-    </div>
-
-    <div class="certs-grid reveal">
-      <div class="cert-card">
-        <div class="cert-icon"><i class="fas fa-language"></i></div>
-        <div class="cert-name">Curso de Inglês<br><span style="color:var(--muted);font-size:0.78rem">Casa Thomas Jefferson</span></div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon"><i class="fab fa-aws"></i></div>
-        <div class="cert-name">Cloud Computing — AWS<br><span style="color:var(--muted);font-size:0.78rem">Amazon Web Services</span></div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon"><i class="fas fa-brain"></i></div>
-        <div class="cert-name">Machine Learning — Google Colab<br><span style="color:var(--muted);font-size:0.78rem">Google</span></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ═══════════════════════════════════════
-       RECOMENDAÇÕES
-  ════════════════════════════════════════ -->
-  <section id="recomendacoes">
-    <div class="reveal">
-      <p class="section-label">O que dizem</p>
-      <h2 class="section-title"><span>Recomendações</span></h2>
-    </div>
-
-    <div class="rec-grid reveal">
-      <div class="rec-card">
-        <div class="rec-quote">"</div>
-        <p class="rec-text">
-          Filipe é um aluno dedicado, com grande capacidade de aprendizado
-          e disposição para ir além do conteúdo ensinado em sala de aula.
+    <!-- ============ CONTATO ============ -->
+    <section class="section section--dark contact" id="contato">
+      <div class="container contact__inner reveal">
+        <p class="eyebrow">Contato</p>
+        <h2 class="text-headline">Vamos construir algo juntos.</h2>
+        <p class="text-lead contact__lead">
+          Estou aberto a estágios, colaborações e projetos freelance em IA e desenvolvimento.
         </p>
-        <div class="rec-author">— Professor João</div>
+        <div class="contact__cta">
+          <a class="button button--primary" href="mailto:amanciofilipe0906@gmail.com">Enviar e-mail</a>
+          <button class="button button--ghost" type="button" id="copyEmail" data-email="amanciofilipe0906@gmail.com">
+            <span class="copy-label">Copiar e-mail</span>
+          </button>
+        </div>
+        <ul class="contact__links">
+          <li><a href="https://www.linkedin.com/in/filipe-amancio-6b8b53406" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/filipe-amancio" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://wa.me/5561999015955" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
       </div>
+    </section>
+  </main>
 
-      <div class="rec-card">
-        <div class="rec-quote">"</div>
-        <p class="rec-text">
-          Demonstrou comprometimento e habilidade técnica em projetos,
-          entregando resultados de qualidade dentro dos prazos estabelecidos.
-        </p>
-        <div class="rec-author">— Supervisora Maria</div>
-      </div>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© <span id="year">2026</span> Filipe Amancio da Silva</p>
+      <p>Feito com HTML, CSS e JavaScript · <a href="https://github.com/filipe-amancio/PortfolioHUB" target="_blank" rel="noopener">Código-fonte</a></p>
     </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ═══════════════════════════════════════
-       CONTATO
-  ════════════════════════════════════════ -->
-  <section id="contato">
-    <div class="contact-card reveal">
-      <p class="section-label">Vamos conversar</p>
-      <h2 class="section-title" style="display:block;border:none;">Entre em <span>Contato</span></h2>
-      <p class="contact-sub">
-        Aberto a estágios, colaborações e projetos freelance.
-        Respondo em até 24h!
-      </p>
-
-      <div class="contact-links">
-        <a href="mailto:amanciofilipe0906@gmail.com" class="contact-link">
-          <i class="fas fa-envelope"></i> amanciofilipe0906@gmail.com
-        </a>
-        <a href="https://github.com/filipe-amancio" target="_blank" class="contact-link">
-          <i class="fab fa-github"></i> github.com/filipe-amancio
-        </a>
-        <a href="https://www.linkedin.com/in/filipe-amancio-6b8b53406" target="_blank" class="contact-link">
-          <i class="fab fa-linkedin"></i> LinkedIn
-        </a>
-        <a href="tel:+5561999015955" class="contact-link">
-          <i class="fas fa-phone"></i> (61) 99901-5955
-        </a>
-      </div>
-
-      <a href="mailto:amanciofilipe0906@gmail.com" class="btn btn-primary" style="font-size:0.95rem;padding:1rem 2.5rem;">
-        <i class="fas fa-paper-plane"></i> Enviar Mensagem
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2026 Filipe Amancio da Silva · Desenvolvido com HTML, CSS &amp; JavaScript · Publicado no GitHub Pages</p>
   </footer>
 
-  <!-- ============================================================
-       SCRIPTS
-  ============================================================ -->
-  <script>
-    // Cursor personalizado
-    const cursor = document.getElementById('cursor');
-    const ring   = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      cursor.style.left = mx - 5  + 'px';
-      cursor.style.top  = my - 5  + 'px';
-    });
-
-    (function animRing() {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.left = rx - 18 + 'px';
-      ring.style.top  = ry - 18 + 'px';
-      requestAnimationFrame(animRing);
-    })();
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    reveals.forEach(r => observer.observe(r));
-  </script>
+  <script src="assets/js/script.js" defer></script>
 </body>
 </html>
